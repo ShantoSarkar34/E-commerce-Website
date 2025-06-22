@@ -1,5 +1,6 @@
-import React from 'react'
-import { NavLink } from 'react-router'
+import React from "react";
+import { NavLink } from "react-router";
+import logo from "../assets/logo/logo.svg";
 
 const Header = () => {
   return (
@@ -11,7 +12,7 @@ const Header = () => {
               <button
                 tabIndex={0}
                 role="button"
-                className="pr-3 pt-1 cursor-pointer lg:hidden hover:text-primary focus:text-primary transition-all duration-200"
+                className="pr-3 pt-1 cursor-pointer lg:hidden hover:text-[#ffbb38] focus:text-[#ffbb38] transition-all duration-200"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -36,9 +37,9 @@ const Header = () => {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary border-b pb-1 transition-all duration-200 ${
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
                       isActive
-                        ? "text-primary border-primary "
+                        ? "text-[#ffbb38] border-[#797979] "
                         : "text-[#0F0F0F80] border-white"
                     }`
                   }
@@ -48,9 +49,9 @@ const Header = () => {
                 <NavLink
                   to="/about"
                   className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary border-b pb-1 transition-all duration-200 ${
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
                       isActive
-                        ? "text-primary"
+                        ? "text-[#ffbb38]"
                         : "text-[#0F0F0F80] border-white"
                     }`
                   }
@@ -60,9 +61,9 @@ const Header = () => {
                 <NavLink
                   to="/profile"
                   className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary border-b pb-1 transition-all duration-200 ${
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
                       isActive
-                        ? "text-primary"
+                        ? "text-[#ffbb38]"
                         : "text-[#0F0F0F80] border-white"
                     }`
                   }
@@ -72,11 +73,8 @@ const Header = () => {
               </ul>
             </div>
 
-            <a
-              href="/"
-              className=" text-sm lg:text-[28px] font-black text-primary flex items-center gap-1"
-            >
-              BD-Resorts
+            <a href="/" className="flex items-center gap-1">
+              <img src={logo} alt="logo" />
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">
@@ -84,9 +82,9 @@ const Header = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `text-[14px]  font-semibold hover:text-primary transition-all duration-100 border-b-2 py-[1px] px-1 ${
+                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all duration-100 border-b-2 py-[1px] px-1 ${
                     isActive
-                      ? "text-primary"
+                      ? "text-[#ffbb38]"
                       : "text-[#0F0F0F80] border-gray-100"
                   }`
                 }
@@ -96,9 +94,9 @@ const Header = () => {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  ` text-[14px] font-semibold hover:text-primary  transition-all duration-100 border-b-2 py-[1px] px-1  ${
+                  ` text-[14px] font-semibold hover:text-[#ffbb38]  transition-all duration-100 border-b-2 py-[1px] px-1  ${
                     isActive
-                      ? "text-primary"
+                      ? "text-[#ffbb38]"
                       : "text-[#0F0F0F80] border-gray-100"
                   }`
                 }
@@ -109,9 +107,9 @@ const Header = () => {
                 <NavLink
                   to="/profile"
                   className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
                       isActive
-                        ? "text-primary "
+                        ? "text-[#ffbb38] "
                         : "text-[#0F0F0F80] border-gray-100"
                     }`
                   }
@@ -122,9 +120,9 @@ const Header = () => {
                 <NavLink
                   to="/login"
                   className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
                       isActive
-                        ? "text-primary "
+                        ? "text-[#ffbb38] "
                         : "text-[#0F0F0F80] border-gray-100"
                     }`
                   }
@@ -133,17 +131,17 @@ const Header = () => {
                 </NavLink>
               )} */}
               <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-primary pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                      isActive
-                        ? "text-primary "
-                        : "text-[#0F0F0F80] border-gray-100"
-                    }`
-                  }
-                >
-                  profile
-                </NavLink>
+                to="/profile"
+                className={({ isActive }) =>
+                  ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
+                    isActive
+                      ? "text-[#ffbb38] "
+                      : "text-[#0F0F0F80] border-gray-100"
+                  }`
+                }
+              >
+                profile
+              </NavLink>
             </ul>
           </div>
           <div className="navbar-end">
@@ -159,7 +157,7 @@ const Header = () => {
                         </h4>
                       </div>
                     </div>
-                    <div className="w-10 h-10  rounded-full overflow-hidden border-2 transition-all duration-200 hover:border-secondary border-primary">
+                    <div className="w-10 h-10  rounded-full overflow-hidden border-2 transition-all duration-200 hover:border-secondary border-[#797979]">
                       <img src={user.photoURL} className=" object-cover" />
                     </div>
                   </div>
@@ -171,18 +169,18 @@ const Header = () => {
               {/* buttons */}
               <div>
                 <NavLink
-                      to="/login"
-                      className="py-3 px-5 lg:py-[12px] lg:px-[24px] rounded-[8px] text-white font-semibold text-[12px]  lg:text-[16px] cursor-pointer hover:shadow-sm shadow-primary bg-primary transition-all duration-200"
-                    >
-                      Log In
-                    </NavLink>
+                  to="/login"
+                  className="py-3 px-5 lg:py-[12px] lg:px-[24px] rounded-[8px] text-white font-semibold text-[12px]  lg:text-[16px] cursor-pointer hover:shadow-sm shadow-[#ffbb38] bg-[#ffbb38] transition-all duration-200"
+                >
+                  Log In
+                </NavLink>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

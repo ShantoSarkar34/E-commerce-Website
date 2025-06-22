@@ -3,12 +3,17 @@ import Root from "../Pages/root/Root";
 import Login from "../Pages/login/Login";
 import SignUp from "../Pages/signup/SignUp";
 import Profile from "../Pages/profile/Profile";
+import Home from "../Pages/home/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
     children: [
+      {
+        path: "",
+        Component: Home,
+      },
       {
         path: "/about",
         element: <p className="pt-20">About page</p>,
