@@ -1,8 +1,22 @@
-import React from "react";
+import React, { use } from "react";
 import { NavLink } from "react-router";
 import logo from "../assets/logo/logo.svg";
+import { AuthContext } from "../authProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const { user, logout } = use(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        toast.warn("Logout succesfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="bg-gray-100 text-black shadow-none w-full fixed z-50">
       <div className="container mx-auto px-4 ">
@@ -103,33 +117,6 @@ const Header = () => {
               >
                 About
               </NavLink>
-              {/* {user ? (
-                <NavLink
-                  to="/profile"
-                  className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                      isActive
-                        ? "text-[#ffbb38] "
-                        : "text-[#0F0F0F80] border-gray-100"
-                    }`
-                  }
-                >
-                  profile
-                </NavLink>
-              ) : (
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                      isActive
-                        ? "text-[#ffbb38] "
-                        : "text-[#0F0F0F80] border-gray-100"
-                    }`
-                  }
-                >
-                  profile
-                </NavLink>
-              )} */}
               <NavLink
                 to="/profile"
                 className={({ isActive }) =>
@@ -148,32 +135,43 @@ const Header = () => {
             <div className="flex items-center gap-4">
               {/* profile photo is here  */}
               <div>
-                {/* {user ? (
-                  <div className="relative flex cursor-pointer tooltip tooltip-bottom tooltip-secondary">
-                    <div className="tooltip-content bg-white ">
-                      <div className=" text-black p-2 ">
-                        <h4 className="text-sm text-secondary capitalize font-semibold">
-                          {user.displayName}
-                        </h4>
+                {user ? (
+                  <NavLink to="/profile">
+                    <div className="relative flex cursor-pointer tooltip tooltip-bottom tooltip-secondary">
+                      <div className="tooltip-content bg-white ">
+                        <div className=" text-black p-2 ">
+                          <h4 className="text-sm text-primary capitalize font-semibold ">
+                            {user.displayName}
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="w-10 h-10  rounded-full overflow-hidden border-2 transition-all duration-200 hover:border-primary border-green-600">
+                        <img src={user.photoURL} className=" object-cover" />
                       </div>
                     </div>
-                    <div className="w-10 h-10  rounded-full overflow-hidden border-2 transition-all duration-200 hover:border-secondary border-[#797979]">
-                      <img src={user.photoURL} className=" object-cover" />
-                    </div>
-                  </div>
+                  </NavLink>
                 ) : (
                   <></>
-                )} */}
+                )}
               </div>
 
               {/* buttons */}
               <div>
-                <NavLink
-                  to="/login"
-                  className="py-3 px-5 lg:py-[12px] lg:px-[24px] rounded-[8px] text-white font-semibold text-[12px]  lg:text-[16px] cursor-pointer hover:shadow-sm shadow-[#ffbb38] bg-[#ffbb38] transition-all duration-200"
-                >
-                  Log In
-                </NavLink>
+                {user ? (
+                  <button
+                    onClick={handleLogout}
+                    className="py-3 px-5 lg:py-[12px] lg:px-[24px] rounded-[8px] text-white font-semibold text-[12px]  lg:text-[16px] cursor-pointer hover:shadow-sm shadow-[#ffbb38] bg-[#ffbb38] transition-all duration-200"
+                  >
+                    Log Out
+                  </button>
+                ) : (
+                  <NavLink
+                    to="/login"
+                    className="py-3 px-5 lg:py-[12px] lg:px-[24px] rounded-[8px] text-white font-semibold text-[12px]  lg:text-[16px] cursor-pointer hover:shadow-sm shadow-[#ffbb38] bg-[#ffbb38] transition-all duration-200"
+                  >
+                    Log In
+                  </NavLink>
+                )}
               </div>
             </div>
           </div>

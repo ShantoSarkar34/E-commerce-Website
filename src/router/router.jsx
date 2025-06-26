@@ -4,6 +4,7 @@ import Login from "../Pages/login/Login";
 import SignUp from "../Pages/signup/SignUp";
 import Profile from "../Pages/profile/Profile";
 import Home from "../Pages/home/Home";
+import PrivateRoute from "../authProvider/PrivateRouter";
 
 export const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        Component: Profile,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
     ],
   },
