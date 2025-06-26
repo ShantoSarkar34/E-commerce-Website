@@ -6,7 +6,7 @@ import { NavLink } from "react-router";
 
 const Banner = () => {
   return (
-    <div className="bg-white py-16 w-full">
+    <div className="bg-[#ffffff] py-16 w-full">
       <div className="container mx-auto px-4">
         <div className="flex items-center flex-col lg:flex-row gap-6">
           <div className="lg:w-[65%]">
