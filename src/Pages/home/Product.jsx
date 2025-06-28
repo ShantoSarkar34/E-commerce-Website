@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import loadingAnimation from "../../../public/loading.json";
 import Lottie from "lottie-react";
+import { NavLink, useNavigate } from "react-router";
 
 const Product = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://scica10.vercel.app/allitemspagination?size=60")
+    fetch("http://localhost:3000/all-products")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -26,8 +28,11 @@ const Product = () => {
       </div>
     );
   }
-  
-  
+
+  const handleProduct = (id) => {
+    navigate(`/payment/${id}`);
+  };
+
   return (
     <div className="bg-[#f8f8f8] w-full py-20">
       <div className="container mx-auto px-4">
@@ -66,7 +71,12 @@ const Product = () => {
                   {pro.description}
                 </p>
                 <div>
-                  <button className="btn btn-primary border-none shadow-none w-full text-[#111111]">
+                  <button
+                    onClick={() => {
+                      handleProduct(pro._id);
+                    }}
+                    className="btn btn-primary border-none shadow-none w-full text-[#111111]"
+                  >
                     Buy Now
                   </button>
                 </div>

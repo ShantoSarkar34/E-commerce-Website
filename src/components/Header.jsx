@@ -73,7 +73,7 @@ const Header = () => {
                   About
                 </NavLink>
                 <NavLink
-                  to="/profile"
+                  to="/add-product"
                   className={({ isActive }) =>
                     ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
                       isActive
@@ -82,7 +82,7 @@ const Header = () => {
                     }`
                   }
                 >
-                  Profile
+                 Add Product
                 </NavLink>
               </ul>
             </div>
@@ -118,7 +118,7 @@ const Header = () => {
                 About
               </NavLink>
               <NavLink
-                to="/profile"
+                to="/add-product"
                 className={({ isActive }) =>
                   ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
                     isActive
@@ -127,7 +127,7 @@ const Header = () => {
                   }`
                 }
               >
-                profile
+               Add Product
               </NavLink>
             </ul>
           </div>

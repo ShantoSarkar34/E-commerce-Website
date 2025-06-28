@@ -5,6 +5,8 @@ import SignUp from "../Pages/signup/SignUp";
 import Profile from "../Pages/profile/Profile";
 import Home from "../Pages/home/Home";
 import PrivateRoute from "../authProvider/PrivateRouter";
+import PaymentInput from "../Pages/payment/PaymentInput";
+import AddProduct from "../Pages/addProduct/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +22,12 @@ export const router = createBrowserRouter([
         element: <p className="pt-20">About page</p>,
       },
       {
+        path: "/add-product",
+        element:<PrivateRoute>
+             <AddProduct></AddProduct>
+        </PrivateRoute>
+      },
+      {
         path: "/login",
         Component: Login,
       },
@@ -32,6 +40,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <Profile></Profile>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/payment/:id",
+        element: (
+          <PrivateRoute>
+            <PaymentInput></PaymentInput>
           </PrivateRoute>
         ),
       },
