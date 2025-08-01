@@ -6,7 +6,7 @@ const links = [
   { to: "my-profile", label: "My Profile" },
   { to: "all-cart", label: "All Cart" },
   { to: "like-list", label: "Like List" },
-  { to: "pending-payment", label: "Pending Payment" },
+  { to: "pending-delevery", label: "Pending delevery" },
   { to: "payment-history", label: "Payment History" },
 ];
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const Modal = ({ user, onClose, onSave }) => {
   const [formData, setFormData] = useState({ ...user });
@@ -30,6 +31,7 @@ const Modal = ({ user, onClose, onSave }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
+    toast.success("Profile Updated !");
   };
 
   return (
@@ -69,7 +71,7 @@ const Modal = ({ user, onClose, onSave }) => {
             <input
               type="text"
               name="name"
-              defaultValue={user.name}
+              defaultValue={user.displayName}
               onChange={handleChange}
               className="w-full border rounded px-4 py-2 border-primary"
             />
@@ -89,14 +91,14 @@ const Modal = ({ user, onClose, onSave }) => {
           <div className="flex justify-between">
             <button
               type="submit"
-              className="bg-[#ffbb38] text-black px-6 py-2 rounded hover:bg-[#e6a92f]"
+              className="bg-[#ffbb38] cursor-pointer text-black px-6 py-2 rounded hover:bg-[#e6a92f]"
             >
               Save Changes
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="bg-gray-200 px-6 py-2 rounded hover:bg-gray-300"
+              className="bg-gray-200 cursor-pointer px-6 py-2 rounded hover:bg-gray-300"
             >
               Cancel
             </button>

@@ -5,7 +5,8 @@ import loadingAnimation from "../../../public/loading.json";
 import { RxCross1 } from "react-icons/rx";
 
 const PaymentInput = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const id = "685fdbb113618974edce63e6";
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 

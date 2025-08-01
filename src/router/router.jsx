@@ -8,6 +8,7 @@ import PrivateRoute from "../authProvider/PrivateRouter";
 import PaymentInput from "../Pages/payment/PaymentInput";
 import AddProduct from "../Pages/addProduct/AddProduct";
 import MyProfile from "../Pages/profile/myProfile/MyProfile";
+import AllCart from "../Pages/profile/allCarts/AllCart";
 
 export const router = createBrowserRouter([
   {
@@ -52,14 +53,14 @@ export const router = createBrowserRouter([
           },
           {
             path: "all-cart",
-            element: <p>there is all cart</p>,
+            Component: AllCart,
           },
           {
             path: "like-list",
             element: <p>this is my like list</p>,
           },
           {
-            path: "pending-payment",
+            path: "pending-delevery",
             element: <p>pending items</p>,
           },
           {

@@ -29,9 +29,7 @@ const Product = () => {
     );
   }
 
-  const handleProduct = (id) => {
-    navigate(`/payment/${id}`);
-  };
+
 
   return (
     <div className="bg-[#f8f8f8] w-full py-20">
@@ -72,12 +70,10 @@ const Product = () => {
                 </p>
                 <div>
                   <button
-                    onClick={() => {
-                      handleProduct(pro._id);
-                    }}
+                    
                     className="btn btn-primary border-none shadow-none w-full text-[#111111]"
                   >
-                    Buy Now
+                    Add to Cart
                   </button>
                 </div>
               </div>

@@ -136,7 +136,7 @@ const Header = () => {
               {/* profile photo is here  */}
               <div>
                 {user ? (
-                  <NavLink to="/profile">
+                  <NavLink to="/profile/my-profile">
                     <div className="relative flex cursor-pointer tooltip tooltip-bottom tooltip-secondary">
                       <div className="tooltip-content bg-white ">
                         <div className=" text-black p-2 ">
