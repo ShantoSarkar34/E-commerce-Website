@@ -7,6 +7,7 @@ import Home from "../Pages/home/Home";
 import PrivateRoute from "../authProvider/PrivateRouter";
 import PaymentInput from "../Pages/payment/PaymentInput";
 import AddProduct from "../Pages/addProduct/AddProduct";
+import MyProfile from "../Pages/profile/myProfile/MyProfile";
 
 export const router = createBrowserRouter([
   {
@@ -23,9 +24,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/add-product",
-        element:<PrivateRoute>
-             <AddProduct></AddProduct>
-        </PrivateRoute>
+        element: (
+          <PrivateRoute>
+            <AddProduct></AddProduct>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/login",
@@ -42,6 +45,28 @@ export const router = createBrowserRouter([
             <Profile></Profile>
           </PrivateRoute>
         ),
+        children: [
+          {
+            path: "my-profile",
+            Component: MyProfile,
+          },
+          {
+            path: "all-cart",
+            element: <p>there is all cart</p>,
+          },
+          {
+            path: "like-list",
+            element: <p>this is my like list</p>,
+          },
+          {
+            path: "pending-payment",
+            element: <p>pending items</p>,
+          },
+          {
+            path: "payment-history",
+            element: <p>payment history</p>,
+          },
+        ],
       },
       {
         path: "/payment/:id",

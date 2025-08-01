@@ -20,8 +20,8 @@ const Header = () => {
   return (
     <div className="bg-gray-100 text-black shadow-none w-full fixed z-50">
       <div className="container mx-auto px-4 ">
-        <div className="navbar p-0 py-2 lg:py-4   mx-auto ">
-          <div className="navbar-start">
+        <div className="navbar p-0 py-2 lg:py-4 mx-auto ">
+          <div className="navbar-start pl-10 lg:pl-0">
             <div className="dropdown ">
               <button
                 tabIndex={0}
@@ -82,7 +82,7 @@ const Header = () => {
                     }`
                   }
                 >
-                 Add Product
+                  Add Product
                 </NavLink>
               </ul>
             </div>
@@ -127,7 +127,7 @@ const Header = () => {
                   }`
                 }
               >
-               Add Product
+                Add Product
               </NavLink>
             </ul>
           </div>
