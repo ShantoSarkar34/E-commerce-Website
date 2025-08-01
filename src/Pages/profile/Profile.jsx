@@ -56,7 +56,7 @@ const Profile = () => {
           </div>
 
           {/* Main Content */}
-          <main className="flex-1  p-6 min-h-[60vh] lg:ml-0 lg:mt-10">
+          <main className="flex-1 py-6 lg:pl-6 min-h-[60vh] lg:ml-0 lg:mt-10">
             <Outlet />
           </main>
         </div>

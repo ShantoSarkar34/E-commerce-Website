@@ -31,33 +31,6 @@ const AllCart = () => {
     );
   }
 
-  //   const [cartItems, setCartItems] = useState([
-  //     {
-  //       _id: '1',
-  //       image: 'https://via.placeholder.com/60',
-  //       name: 'Wireless Headphones',
-  //       price: 59.99,
-  //       date: '2025-07-30',
-  //       status: 'Pending',
-  //     },
-  //     {
-  //       _id: '2',
-  //       image: 'https://via.placeholder.com/60',
-  //       name: 'Bluetooth Speaker',
-  //       price: 89.99,
-  //       date: '2025-07-28',
-  //       status: 'Paid',
-  //     },
-  //     {
-  //       _id: '3',
-  //       image: 'https://via.placeholder.com/60',
-  //       name: 'Smart Watch Pro Max',
-  //       price: 129.99,
-  //       date: '2025-07-25',
-  //       status: 'Pending',
-  //     },
-  //   ]);
-
   const handleProduct = (id) => {
     navigate(`/payment/${id}`);
   };

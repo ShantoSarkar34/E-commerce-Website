@@ -1,10 +1,11 @@
-import { use, useState } from "react";
+import { useContext, useState } from "react";
 import { FaShoppingCart, FaHeart, FaStar, FaEdit } from "react-icons/fa";
 import Modal from "./Modal";
 import { AuthContext } from "../../../authProvider/AuthProvider";
+import { motion } from "framer-motion";
 
 const MyProfile = () => {
-  const { user } = use(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userInfo = {
     bought: 12,
@@ -18,43 +19,86 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="p-10 rounded-xl shadow-xl bg-[#ffffff] max-w-5xl mx-auto">
-      <div className="flex flex-col items-center text-center">
-        <img
+    <motion.div
+      className="p-10 rounded-xl shadow-xl bg-[#ffffff] max-w-5xl mx-auto"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="flex flex-col items-center text-center"
+        initial={{ scale: 0.95 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.2 }}
+      >
+        <motion.img
           src={user.photoURL}
           alt="User Avatar"
           className="rounded-full object-cover border-4 border-[#ffbb38] w-36 h-36 shadow-md"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
         />
+
         <h2 className="text-3xl font-semibold mt-6 text-[#0F0F0F]">
           {user.displayName}
         </h2>
         <p className="text-gray-500 mt-1">{user.email}</p>
 
-        <div className="grid grid-cols-3 gap-6 mt-8 w-full">
-          <div className="p-6 bg-gray-50 rounded-xl shadow-sm">
-            <FaShoppingCart className="mx-auto text-[#ffbb38] text-3xl mb-2" />
-            <p className="text-2xl font-bold">{userInfo.bought}</p>
-            <p className="text-gray-500 text-sm">Products Bought</p>
-          </div>
-          <div className="p-6 bg-gray-50 rounded-xl shadow-sm">
-            <FaStar className="mx-auto text-[#ffbb38] text-3xl mb-2" />
-            <p className="text-2xl font-bold">{userInfo.reviews}</p>
-            <p className="text-gray-500 text-sm">Reviews Given</p>
-          </div>
-          <div className="p-6 bg-gray-50 rounded-xl shadow-sm">
-            <FaHeart className="mx-auto text-[#ffbb38] text-3xl mb-2" />
-            <p className="text-2xl font-bold">{userInfo.likes}</p>
-            <p className="text-gray-500 text-sm">Items Liked</p>
-          </div>
-        </div>
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 w-full"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.1,
+              },
+            },
+          }}
+        >
+          {[
+            {
+              icon: <FaShoppingCart className="text-3xl mb-2 mx-auto" />,
+              value: userInfo.bought,
+              label: "Products Bought",
+            },
+            {
+              icon: <FaStar className="text-3xl mb-2 mx-auto" />,
+              value: userInfo.reviews,
+              label: "Reviews Given",
+            },
+            {
+              icon: <FaHeart className="text-3xl mb-2 mx-auto" />,
+              value: userInfo.likes,
+              label: "Items Liked",
+            },
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              className="p-6 bg-gray-50 rounded-xl shadow-sm text-center"
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+            >
+              <div className="mx-auto text-[#ffbb38]">{item.icon}</div>
+              <p className="text-2xl font-bold">{item.value}</p>
+              <p className="text-gray-500 text-sm">{item.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
 
-        <button
+        <motion.button
           onClick={() => setIsModalOpen(true)}
           className="mt-8 bg-[#ffbb38] text-black px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-[#e6a92f] transition"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           <FaEdit /> Update Profile
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {isModalOpen && (
         <Modal
@@ -63,7 +107,7 @@ const MyProfile = () => {
           onSave={handleUpdate}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 
