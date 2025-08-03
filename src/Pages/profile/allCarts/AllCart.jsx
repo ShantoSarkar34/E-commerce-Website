@@ -11,7 +11,7 @@ const AllCart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:3000/all-products")
+    fetch("https://online-shop9070-server.onrender.com/all-products")
       .then((res) => res.json())
       .then((data) => {
         setData(data);

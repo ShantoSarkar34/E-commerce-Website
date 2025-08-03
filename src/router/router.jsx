@@ -9,6 +9,7 @@ import PaymentInput from "../Pages/payment/PaymentInput";
 import AddProduct from "../Pages/addProduct/AddProduct";
 import MyProfile from "../Pages/profile/myProfile/MyProfile";
 import AllCart from "../Pages/profile/allCarts/AllCart";
+import SingleProduct from "../Pages/home/singleProduct/SingleProduct";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddProduct></AddProduct>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/product/details/:id",
+        element: (
+          <PrivateRoute>
+            <SingleProduct></SingleProduct>
           </PrivateRoute>
         ),
       },

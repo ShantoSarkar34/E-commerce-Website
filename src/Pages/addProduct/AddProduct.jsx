@@ -22,7 +22,7 @@ const AddProduct = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/all-products",
+        "https://online-shop9070-server.onrender.com/all-products",
         productData
       );
       console.log( response.data.insertedId);

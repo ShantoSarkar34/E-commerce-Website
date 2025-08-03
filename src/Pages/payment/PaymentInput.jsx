@@ -21,7 +21,7 @@ const PaymentInput = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/all-products")
+    fetch("https://online-shop9070-server.onrender.com/all-products")
       .then((res) => res.json())
       .then((data) => {
         const filterData = data.filter((pro) => pro._id === id);
@@ -94,7 +94,7 @@ const PaymentInput = () => {
               Total Price : ${res.price}
             </h2>
             <div className=" absolute top-2 lg:top-3 right-2 lg:right-3">
-              <NavLink to="/">
+              <NavLink to="/profile/all-cart">
                 <RxCross1 className="text-gray-500" />
               </NavLink>
             </div>
