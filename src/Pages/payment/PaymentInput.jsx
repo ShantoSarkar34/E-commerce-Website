@@ -5,8 +5,7 @@ import loadingAnimation from "../../../public/loading.json";
 import { RxCross1 } from "react-icons/rx";
 
 const PaymentInput = () => {
-  // const { id } = useParams();
-  const id = "685fdbb113618974edce63e6";
+  const { id } = useParams();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -21,7 +20,7 @@ const PaymentInput = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch("https://online-shop9070-server.onrender.com/all-products")
+    fetch("http://localhost:3000/all-carts")
       .then((res) => res.json())
       .then((data) => {
         const filterData = data.filter((pro) => pro._id === id);
@@ -88,10 +87,10 @@ const PaymentInput = () => {
             className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-xl border border-gray-200 space-y-4 relative"
           >
             <h1 className="text-2xl text-center font-bold text-gray-500 mb-4 lg:mb-8">
-              {res.name}
+              {res.productName}
             </h1>
             <h2 className="text-xl font-bold text-gray-800">
-              Total Price : ${res.price}
+              Total Price : ${res.productPrice}
             </h2>
             <div className=" absolute top-2 lg:top-3 right-2 lg:right-3">
               <NavLink to="/profile/all-cart">

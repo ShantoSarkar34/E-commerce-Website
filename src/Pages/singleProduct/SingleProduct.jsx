@@ -1,15 +1,20 @@
 import Lottie from "lottie-react";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import loadingAnimation from "../../../../public/loading.json";
+import React, { use, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import loadingAnimation from "../../../public/loading.json";
 import { motion } from "framer-motion";
 import { FaHeart } from "react-icons/fa";
+import RelativeProduct from "../relativeProduct/RelativeProduct";
+import { AuthContext } from "../../authProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const SingleProduct = () => {
   const { id } = useParams();
+  const { user } = use(AuthContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://online-shop9070-server.onrender.com/all-products")
@@ -33,13 +38,61 @@ const SingleProduct = () => {
   }
 
   const filterdProduct = data?.filter((res) => res._id === id);
+  const filterCategory = data?.filter(
+    (val) => val.category === filterdProduct[0].category
+  );
 
   const toggleLike = () => setLiked(!liked);
+
+  const handleAddToCart = (product) => {
+    const productName = product.name;
+    const productPrice = product.price;
+    const productBrand = product.brand;
+    const productCategory = product.category;
+    const productDescription = product.description;
+    const productImage = product.image;
+    const paymentStatus = "pending";
+    const likeStatus = "disliked";
+    const userEmail = user.email;
+    const today = new Date();
+    const createdAt = `${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}-${today.getFullYear()}`;
+
+    const newCart = {
+      productName,
+      productPrice,
+      productCategory,
+      productDescription,
+      productImage,
+      productBrand,
+      paymentStatus,
+      likeStatus,
+      userEmail,
+      createdAt,
+    };
+    fetch("http://localhost:3000/all-carts", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newCart),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          navigate("/profile/all-cart");
+          toast.success(`${product.name} is added to your cart !`);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="pt-16 lg:pt-19">
       <motion.div
-        className="min-h-screen bg-[#f8f8f8] py-16 px-4 flex justify-center items-center"
+        className="min-h-screen bg-[#eeeeee] py-16 px-4 flex justify-center items-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -83,6 +136,7 @@ const SingleProduct = () => {
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <motion.button
                   whileTap={{ scale: 0.95 }}
+                  onClick={() => handleAddToCart(product)}
                   className="bg-[#ffbb38] cursor-pointer hover:bg-[#e6a92f] text-black font-semibold px-5 py-2 rounded-lg transition"
                 >
                   Add to Cart
@@ -110,6 +164,10 @@ const SingleProduct = () => {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* relative product  */}
+
+      <RelativeProduct filterCategory={filterCategory}></RelativeProduct>
     </div>
   );
 };

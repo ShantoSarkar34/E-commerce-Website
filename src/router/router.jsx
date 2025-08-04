@@ -9,7 +9,8 @@ import PaymentInput from "../Pages/payment/PaymentInput";
 import AddProduct from "../Pages/addProduct/AddProduct";
 import MyProfile from "../Pages/profile/myProfile/MyProfile";
 import AllCart from "../Pages/profile/allCarts/AllCart";
-import SingleProduct from "../Pages/home/singleProduct/SingleProduct";
+import SingleProduct from "../Pages/singleProduct/SingleProduct";
+import LikeList from "../Pages/profile/likeList/LikeList";
 
 export const router = createBrowserRouter([
   {
@@ -58,15 +59,27 @@ export const router = createBrowserRouter([
         children: [
           {
             path: "my-profile",
-            Component: MyProfile,
+            element: (
+              <PrivateRoute>
+                <MyProfile></MyProfile>
+              </PrivateRoute>
+            ),
           },
           {
             path: "all-cart",
-            Component: AllCart,
+            element: (
+              <PrivateRoute>
+                <AllCart></AllCart>
+              </PrivateRoute>
+            ),
           },
           {
             path: "like-list",
-            element: <p>this is my like list</p>,
+            element: (
+              <PrivateRoute>
+                <LikeList></LikeList>
+              </PrivateRoute>
+            ),
           },
           {
             path: "pending-delevery",

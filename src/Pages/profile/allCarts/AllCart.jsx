@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router";
 import loadingAnimation from "../../../../public/loading.json";
 import Lottie from "lottie-react";
+import Swal from "sweetalert2";
 
 const AllCart = () => {
   const [data, setData] = useState();
@@ -11,7 +12,7 @@ const AllCart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://online-shop9070-server.onrender.com/all-products")
+    fetch("http://localhost:3000/all-carts")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -31,8 +32,38 @@ const AllCart = () => {
     );
   }
 
-  const handleProduct = (id) => {
+  const handlePayment = (id) => {
     navigate(`/payment/${id}`);
+  };
+
+  const handleDeleteCart = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/all-carts/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((dat) => {
+            if (dat.deletedCount) {
+              const remainingUser = data.filter((data) => data._id !== id);
+              setData(remainingUser);
+            }
+          });
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your item has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -68,21 +99,18 @@ const AllCart = () => {
             >
               <td className="px-6 py-4">
                 <img
-                  src={item.image}
-                  alt={item.name}
+                  src={item.productImage}
+                  alt={item.productName}
                   className="w-14 h-14 rounded object-cover"
                 />
               </td>
               <td className="px-6 py-4 font-medium text-[#0F0F0F]">
-                {item.name}
+                {item.productName}
               </td>
               <td className="px-6 py-4 text-gray-700">
-                ${item.price.toFixed(2)}
+                ${item.productPrice.toFixed(2)}
               </td>
-              <td className="px-6 py-4 text-gray-500">
-                {/* {item.date} */}
-                01/08/2025
-              </td>
+              <td className="px-6 py-4 text-gray-500">{item.createdAt}</td>
               <td className="px-6 py-4">
                 <span
                   className={`px-3 py-1 text-xs font-semibold rounded-full ${
@@ -91,38 +119,30 @@ const AllCart = () => {
                       : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
-                  {/* {item.status} */} pending
+                  {item.paymentStatus}
                 </span>
               </td>
               <td className="px-6 py-4 flex items-center gap-3">
                 <button
                   title="Remove"
+                  onClick={() => handleDeleteCart(item._id)}
                   className="text-red-500 cursor-pointer hover:text-red-700 transition"
                 >
                   <FaTrashAlt />
                 </button>
 
                 {/* condition button  */}
-                <button
-                  title="Pay Now"
-                  onClick={() => {
-                    handleProduct("685fdbb113618974edce63e6");
-                  }}
-                  className="flex cursor-pointer items-center gap-2 bg-[#ffbb38] hover:bg-[#e6a92f] text-black text-sm font-medium px-4 py-2 rounded shadow"
-                >
-                  <FaCreditCard /> Pay
-                </button>
-                {/* {item.status === 'Pending' && (
+                {item.paymentStatus === "pending" && (
                   <button
                     title="Pay Now"
                     onClick={() => {
-                      handleProduct("685fdbb113618974edce63e6");
+                      handlePayment(item._id);
                     }}
                     className="flex cursor-pointer items-center gap-2 bg-[#ffbb38] hover:bg-[#e6a92f] text-black text-sm font-medium px-4 py-2 rounded shadow"
                   >
                     <FaCreditCard /> Pay
                   </button>
-                )} */}
+                )}
               </td>
             </motion.tr>
           ))}
