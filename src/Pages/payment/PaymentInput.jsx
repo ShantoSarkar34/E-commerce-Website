@@ -20,7 +20,7 @@ const PaymentInput = () => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:3000/all-carts")
+    fetch("https://online-shop9070-server.onrender.com/all-carts")
       .then((res) => res.json())
       .then((data) => {
         const filterData = data.filter((pro) => pro._id === id);

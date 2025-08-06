@@ -12,8 +12,9 @@ const SingleProduct = () => {
   const { id } = useParams();
   const { user } = use(AuthContext);
   const [data, setData] = useState([]);
+  const [likedItems, setLikedItems] = useState([]);
+  const [item, setItem] = useState();
   const [loading, setLoading] = useState(true);
-  const [liked, setLiked] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,22 +28,78 @@ const SingleProduct = () => {
         console.log(error);
         setLoading(false);
       });
+    fetch("https://online-shop9070-server.onrender.com/liked-items")
+      .then((res) => res.json())
+      .then((data) => {
+        setLikedItems(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen w-full flex items-center justify-center">
-        <Lottie animationData={loadingAnimation} loop={true} className="w-50" />
-      </div>
-    );
-  }
-
   const filterdProduct = data?.filter((res) => res._id === id);
+
+  const filterdItems = likedItems?.filter(
+    (res) =>
+      res.productName === filterdProduct[0]?.name &&
+      res.userEmail === user.email
+  );
+
   const filterCategory = data?.filter(
     (val) => val.category === filterdProduct[0].category
   );
 
-  const toggleLike = () => setLiked(!liked);
+  const toggleLike = (product) => {
+    if (filterdItems[0]?.likeStatus === "liked") {
+      toast.warn("This product already added to your Like list");
+      return;
+    }
+    const likeStatus = "liked";
+    const productName = product.name;
+    const productPrice = product.price;
+    const productBrand = product.brand;
+    const productCategory = product.category;
+    const productImage = product.image;
+    const productDescription = product.description;
+    const paymentStatus = "pending";
+    const userEmail = user.email;
+    const today = new Date();
+    const createdAt = `${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}-${today.getFullYear()}`;
+
+    const newItems = {
+      productName,
+      productPrice,
+      productCategory,
+      productImage,
+      productBrand,
+      productDescription,
+      paymentStatus,
+      likeStatus,
+      userEmail,
+      createdAt,
+    };
+    fetch("https://online-shop9070-server.onrender.com/liked-items", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newItems),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          navigate("/profile/like-list");
+          toast.success(`${product.name} is added to your like list !`);
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   const handleAddToCart = (product) => {
     const productName = product.name;
@@ -72,7 +129,7 @@ const SingleProduct = () => {
       userEmail,
       createdAt,
     };
-    fetch("http://localhost:3000/all-carts", {
+    fetch("https://online-shop9070-server.onrender.com/all-carts", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -83,11 +140,18 @@ const SingleProduct = () => {
       .then((data) => {
         if (data.insertedId) {
           navigate("/profile/all-cart");
-          toast.success(`${product.name} is added to your cart !`);
         }
       })
       .catch((err) => console.error(err));
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <Lottie animationData={loadingAnimation} loop={true} className="w-50" />
+      </div>
+    );
+  }
 
   return (
     <div className="pt-16 lg:pt-19">
@@ -147,15 +211,30 @@ const SingleProduct = () => {
                 >
                   Buy Now
                 </motion.button>
-                <motion.button
+
+                {/* <motion.button
                   whileTap={{ scale: 0.9 }}
-                  onClick={toggleLike}
+                  onClick={() => toggleLike(product)}
                   className="text-2xl transition cursor-pointer"
-                  title={liked ? "Unlike" : "Like"}
+                  title={product.likeStatus ? "Unlike" : "Like"}
                 >
                   <FaHeart
                     className={`transition duration-200 ${
-                      liked ? "text-red-500" : "text-gray-400"
+                      product.likeStatus ? "text-red-500" : "text-gray-400"
+                    }`}
+                  />
+                </motion.button> */}
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => toggleLike(product)}
+                  className="text-2xl transition cursor-pointer"
+                  title={filterdItems[0]?.likeStatus ? "Unlike" : "Like"}
+                >
+                  <FaHeart
+                    className={`transition duration-200 ${
+                      filterdItems[0]?.likeStatus
+                        ? "text-red-500"
+                        : "text-gray-400"
                     }`}
                   />
                 </motion.button>

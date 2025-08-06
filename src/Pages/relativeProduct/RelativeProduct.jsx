@@ -44,7 +44,7 @@ const RelativeProduct = ({ filterCategory }) => {
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
         >
-          Discover our premium collection of {filterCategory[0].category},
+          Discover our premium collection of {filterCategory[0]?.category},
           gadgets and essentials.
         </motion.p>
 
