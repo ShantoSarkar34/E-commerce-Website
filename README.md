@@ -42,9 +42,3 @@ Check out the live website here: [Online Shop BD](https://online-shop9070-bd.sur
 - Fully responsive design for all devices
 
 ---
-
-## 📂 Getting Started
-
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
