@@ -73,6 +73,18 @@ const Header = () => {
                   About
                 </NavLink>
                 <NavLink
+                  to="/apply-for-seller"
+                  className={({ isActive }) =>
+                    ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
+                      isActive
+                        ? "text-[#ffbb38]"
+                        : "text-[#0F0F0F80] border-white"
+                    }`
+                  }
+                >
+                  Become Seller
+                </NavLink>
+                <NavLink
                   to="/add-product"
                   className={({ isActive }) =>
                     ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
@@ -116,6 +128,18 @@ const Header = () => {
                 }
               >
                 About
+              </NavLink>
+              <NavLink
+                to="/apply-for-seller"
+                className={({ isActive }) =>
+                  ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
+                    isActive
+                      ? "text-[#ffbb38] "
+                      : "text-[#0F0F0F80] border-gray-100"
+                  }`
+                }
+              >
+                Become Seller
               </NavLink>
               <NavLink
                 to="/add-product"

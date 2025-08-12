@@ -11,6 +11,7 @@ import MyProfile from "../Pages/profile/myProfile/MyProfile";
 import AllCart from "../Pages/profile/allCarts/AllCart";
 import SingleProduct from "../Pages/singleProduct/SingleProduct";
 import LikeList from "../Pages/profile/likeList/LikeList";
+import SellerForm from "../Pages/becomeSeller/SellerForm";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,14 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <p className="pt-20">About page</p>,
+      },
+      {
+        path: "/apply-for-seller",
+        element: (
+          <PrivateRoute>
+            <SellerForm></SellerForm>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-product",
