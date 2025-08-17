@@ -1,11 +1,24 @@
-import React, { use } from "react";
+import React, { use, useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import logo from "../assets/logo/logo.svg";
 import { AuthContext } from "../authProvider/AuthProvider";
 import { toast } from "react-toastify";
+import { Sun, Moon } from "lucide-react";
 
 const Header = () => {
-  const { user, logout } = use(AuthContext);
+  const { user, logout, theme, setTheme } = use(AuthContext);
+
+  useEffect(() => {
+    document.documentElement.classList.remove(
+      theme === "light" ? "dark" : "light"
+    );
+    document.documentElement.classList.add(theme);
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
 
   const handleLogout = () => {
     logout()
@@ -18,7 +31,10 @@ const Header = () => {
   };
 
   return (
-    <div className="bg-gray-100 text-black shadow-none w-full fixed z-50">
+    <div
+      className={` shadow-none w-full fixed z-50 transition-all duration-300
+     ${theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-100"}`}
+    >
       <div className="container mx-auto px-4 ">
         <div className="navbar p-0 py-2 lg:py-4 mx-auto ">
           <div className="navbar-start pl-10 lg:pl-0">
@@ -108,10 +124,14 @@ const Header = () => {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all duration-100 border-b-2 py-[1px] px-1 ${
-                    isActive
-                      ? "text-[#ffbb38]"
+                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all border-b-2 duration-100 py-[1px] px-1  ${
+                    theme === "dark"
+                      ? "text-white border-gray-800"
                       : "text-[#0F0F0F80] border-gray-100"
+                  } ${
+                    isActive
+                      ? "text-primary border-primary "
+                      : "text-[#0F0F0F80] "
                   }`
                 }
               >
@@ -120,10 +140,14 @@ const Header = () => {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  ` text-[14px] font-semibold hover:text-[#ffbb38]  transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                    isActive
-                      ? "text-[#ffbb38]"
+                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all border-b-2 duration-100 py-[1px] px-1  ${
+                    theme === "dark"
+                      ? "text-white border-gray-800"
                       : "text-[#0F0F0F80] border-gray-100"
+                  } ${
+                    isActive
+                      ? "text-[#ffbb38] border-primary "
+                      : "text-[#0F0F0F80] "
                   }`
                 }
               >
@@ -132,10 +156,14 @@ const Header = () => {
               <NavLink
                 to="/apply-for-seller"
                 className={({ isActive }) =>
-                  ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                    isActive
-                      ? "text-[#ffbb38] "
+                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all border-b-2 duration-100 py-[1px] px-1  ${
+                    theme === "dark"
+                      ? "text-white border-gray-800"
                       : "text-[#0F0F0F80] border-gray-100"
+                  } ${
+                    isActive
+                      ? "text-[#ffbb38] border-primary "
+                      : "text-[#0F0F0F80] "
                   }`
                 }
               >
@@ -144,10 +172,14 @@ const Header = () => {
               <NavLink
                 to="/add-product"
                 className={({ isActive }) =>
-                  ` text-[14px] font-semibold hover:text-[#ffbb38] pb-[1px] transition-all duration-100 border-b-2 py-[1px] px-1  ${
-                    isActive
-                      ? "text-[#ffbb38] "
+                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all border-b-2 duration-100 py-[1px] px-1  ${
+                    theme === "dark"
+                      ? "text-white border-gray-800"
                       : "text-[#0F0F0F80] border-gray-100"
+                  } ${
+                    isActive
+                      ? "text-[#ffbb38] border-primary "
+                      : "text-[#0F0F0F80] "
                   }`
                 }
               >
@@ -157,6 +189,28 @@ const Header = () => {
           </div>
           <div className="navbar-end">
             <div className="flex items-center gap-4">
+              {/* theme toggle button */}
+              <button
+                onClick={toggleTheme}
+                className={`relative cursor-pointer  w-16 h-8 flex items-center rounded-full p-2 bg-gradient-to-r  transition-all duration-500 ${
+                  theme === "dark"
+                    ? "from-slate-100 to-gray-700 "
+                    : "from-gray-500 to-gray-800"
+                } `}
+              >
+                {/* Toggle Circle */}
+                <span
+                  className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full flex items-center justify-center text-yellow-400 dark:text-gray-200 transform transition-transform duration-500 ${
+                    theme === "dark" ? "translate-x-8" : ""
+                  }`}
+                >
+                  {theme === "light" ? (
+                    <Moon size={18} className="text-gray-800" />
+                  ) : (
+                    <Sun size={18} className="text-yellow-500" />
+                  )}
+                </span>
+              </button>
               {/* profile photo is here  */}
               <div>
                 {user ? (

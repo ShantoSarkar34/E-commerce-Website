@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import loadingAnimation from "../../../public/loading.json";
 import Lottie from "lottie-react";
 import { useNavigate } from "react-router";
 import { motion } from "framer-motion";
+import { AuthContext } from "../../authProvider/AuthProvider";
 
 const Product = () => {
   const [data, setData] = useState([]);
@@ -10,6 +11,7 @@ const Product = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
   const navigate = useNavigate();
+  const { dark } = use(AuthContext);
 
   useEffect(() => {
     fetch("https://online-shop9070-server.onrender.com/all-products")
@@ -47,10 +49,17 @@ const Product = () => {
   }
 
   return (
-    <div ref={productSectionRef} className="bg-[#f8f8f8] w-full py-20">
+    <div
+      ref={productSectionRef}
+      className={`bg-[#f8f8f8] w-full py-20 transition-all duration-300 ${
+        dark && "bg-gray-700"
+      }`}
+    >
       <div className="container mx-auto px-4">
         <motion.h1
-          className="text-center font-semibold mb-4 text-3xl"
+          className={`text-center font-semibold mb-4 text-3xl ${
+            dark && "text-primary"
+          }`}
           initial={{ opacity: 0, y: -30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -60,7 +69,9 @@ const Product = () => {
         </motion.h1>
 
         <motion.p
-          className="mb-10 lg:mb-14 text-center text-secondary"
+          className={`mb-10 lg:mb-14 text-center text-secondary ${
+            dark && "text-white"
+          }`}
           initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

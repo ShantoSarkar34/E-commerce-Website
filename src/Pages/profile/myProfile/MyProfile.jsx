@@ -5,7 +5,7 @@ import { AuthContext } from "../../../authProvider/AuthProvider";
 import { motion } from "framer-motion";
 
 const MyProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dark } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userInfo = {
     bought: 12,
@@ -20,30 +20,44 @@ const MyProfile = () => {
 
   return (
     <motion.div
-      className="p-10 rounded-xl shadow-xl bg-[#ffffff] max-w-5xl mx-auto"
+      className={`p-10 rounded-xl shadow-xl bg-[#ffffff] max-w-5xl mx-auto ${
+        dark && "bg-gray-400"
+      }`}
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
-        className="flex flex-col items-center text-center"
+        className={`flex flex-col items-center text-center`}
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.2 }}
       >
-        <motion.img
-          src={user.photoURL}
-          alt="User Avatar"
-          className="rounded-full object-cover border-4 border-[#ffbb38] w-36 h-36 shadow-md"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-        />
+        <div
+          className={` border-4 border-[#ffbb38] rounded-full overflow-hidden p-3 ${
+            dark && "border-white"
+          }`}
+        >
+          <motion.img
+            src={user.photoURL}
+            alt="User Avatar"
+            className={`rounded-full object-cover  w-36 h-36 shadow-md`}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3 }}
+          />
+        </div>
 
-        <h2 className="text-3xl font-semibold mt-6 text-[#0F0F0F]">
+        <h2
+          className={`text-3xl font-semibold mt-6 text-[#0F0F0F] ${
+            dark && "text-primary"
+          }`}
+        >
           {user.displayName}
         </h2>
-        <p className="text-gray-500 mt-1">{user.email}</p>
+        <p className={`text-gray-500 mt-1 ${dark && "text-white"}`}>
+          {user.email}
+        </p>
 
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-8 w-full"
@@ -77,22 +91,30 @@ const MyProfile = () => {
           ].map((item, idx) => (
             <motion.div
               key={idx}
-              className="p-6 bg-gray-50 rounded-xl shadow-sm text-center"
+              className={`p-6 bg-gray-50 rounded-xl shadow-sm text-center ${
+                dark && "bg-gray-300"
+              }`}
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 },
               }}
             >
-              <div className="mx-auto text-[#ffbb38]">{item.icon}</div>
-              <p className="text-2xl font-bold">{item.value}</p>
-              <p className="text-gray-500 text-sm">{item.label}</p>
+              <div
+                className={`mx-auto text-[#ffbb38] ${
+                  dark && "text-orange-400"
+                }`}
+              >
+                {item.icon}
+              </div>
+              <p className={`text-2xl font-bold `}>{item.value}</p>
+              <p className={`text-gray-500 text-sm `}>{item.label}</p>
             </motion.div>
           ))}
         </motion.div>
 
         <motion.button
           onClick={() => setIsModalOpen(true)}
-          className="mt-8 bg-[#ffbb38] text-black px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-[#e6a92f] transition"
+          className={`mt-8 bg-primary text-black px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-[#e6a92f] transition`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
