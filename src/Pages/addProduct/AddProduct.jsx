@@ -3,7 +3,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-
 const AddProduct = () => {
   const {
     register,
@@ -25,16 +24,14 @@ const AddProduct = () => {
         "https://online-shop9070-server.onrender.com/all-products",
         productData
       );
-      console.log( response.data.insertedId);
       reset();
-      if(response.data.insertedId){
-        toast.success('Product Upload successfull !')
+      if (response.data.insertedId) {
+        toast.success("Product Upload successfull !");
       }
     } catch (error) {
       console.log("error submitting :", error);
     }
   };
-
 
   return (
     <div className="pt-16 lg:pt-20">

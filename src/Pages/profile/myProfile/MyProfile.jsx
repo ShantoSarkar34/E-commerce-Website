@@ -1,12 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaShoppingCart, FaHeart, FaStar, FaEdit } from "react-icons/fa";
 import Modal from "./Modal";
+import loadingAnimation from "../../../../public/loading.json";
+import Lottie from "lottie-react";
 import { AuthContext } from "../../../authProvider/AuthProvider";
 import { motion } from "framer-motion";
 
 const MyProfile = () => {
-  const { user, dark } = useContext(AuthContext);
+  const { user, dark, currentRole, loading } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const userInfo = {
     bought: 12,
     reviews: 5,
@@ -17,6 +20,14 @@ const MyProfile = () => {
     console.log("trying to update userInfo info", updatedData);
     setIsModalOpen(false);
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <Lottie animationData={loadingAnimation} loop={true} className="w-50" />
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -55,8 +66,11 @@ const MyProfile = () => {
         >
           {user.displayName}
         </h2>
-        <p className={`text-gray-500 mt-1 ${dark && "text-white"}`}>
+        <p className={`text-gray-500 mt-2 ${dark && "text-white"}`}>
           {user.email}
+        </p>
+        <p className={`text-gray-500 text-lg mt-1 ${dark && "text-white"}`}>
+          Role : <span>{currentRole[0]?.role}</span>
         </p>
 
         <motion.div

@@ -12,11 +12,14 @@ import AllCart from "../Pages/profile/allCarts/AllCart";
 import SingleProduct from "../Pages/singleProduct/SingleProduct";
 import LikeList from "../Pages/profile/likeList/LikeList";
 import SellerForm from "../Pages/becomeSeller/SellerForm";
+import AdminRoute from "../authProvider/AdminRoute";
+import Error from "../Pages/error/Error";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: Root,
+    errorElement: <Error></Error>,
     children: [
       {
         path: "",
@@ -37,9 +40,9 @@ export const router = createBrowserRouter([
       {
         path: "/add-product",
         element: (
-          <PrivateRoute>
+          <AdminRoute>
             <AddProduct></AddProduct>
-          </PrivateRoute>
+          </AdminRoute>
         ),
       },
       {

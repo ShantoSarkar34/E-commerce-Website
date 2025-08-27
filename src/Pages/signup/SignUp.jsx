@@ -41,7 +41,7 @@ const SignUp = () => {
       return;
     }
 
-    createUser(email, password)
+    createUser(email, password, name)
       .then((result) => {
         const user = result.user;
         updateUser({ displayName: name, photoURL: photo })
