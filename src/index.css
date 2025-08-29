@@ -9,5 +9,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --color-primary: #ffbb38;
-  --color-secondary: #0F0F0F80;
+  --color-secondary: #0f0f0f80;
+}
+
+.cta_bg {
+  background: url("./assets/Cta_bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
 }
