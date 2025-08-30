@@ -1,26 +1,37 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaUpload } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaMapMarkerAlt, FaUpload } from "react-icons/fa";
+import { AuthContext } from "../../authProvider/AuthProvider";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const SellerForm = () => {
+  const { user } = use(AuthContext);
   const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
+  const today = new Date();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     contactNumber: "",
     whatsapp: "",
-    email: "",
+    email: user?.email,
     country: "",
-    address: "", // will be updated by geolocation
+    address: "",
     shopName: "",
     shopAddress: "",
     password: "",
     confirmPassword: "",
+     createdAt : `${String(today.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(today.getDate()).padStart(2, "0")}-${today.getFullYear()}`
   });
-
   const [profilePic, setProfilePic] = useState(null);
   const [shopLogo, setShopLogo] = useState(null);
   const [coverPic, setCoverPic] = useState(null);
+  const [show, setShow] = useState(true);
+  const navigate = useNavigate()
 
   // Universal input change handler
   const handleChange = (e) => {
@@ -107,14 +118,32 @@ const SellerForm = () => {
   };
 
   // On form submit, log all data including image URLs
-  const handleFormInfo = (e) => {
+  const handleFormInfo = async (e) => {
     e.preventDefault();
-    console.log({
+    const sellerData = {
       ...formData,
       profilePic,
       shopLogo,
       coverPic,
-    });
+    }
+    try {
+      const response = await axios.post(
+        "https://online-shop9070-server.onrender.com/all-seller",
+        sellerData
+      );
+      if (response.data.insertedId) {
+        toast.success("Congratulations, You become a seller !");
+        navigate('/profile/my-profile')
+      }
+    } catch (error) {
+      console.log("error submitting :", error);
+    }
+    console.log(sellerData);
+    
+  };
+
+  const handleShow = () => {
+    setShow(!show);
   };
 
   return (
@@ -136,7 +165,10 @@ const SellerForm = () => {
           {/* Left Form Section */}
           <div className="lg:col-span-4">
             {/* Seller Info */}
-            <h3 className="text-xl font-semibold mb-4">Seller Information</h3>
+            <h3 className="text-xl font-semibold">Seller Information</h3>
+            <p className="my-4 text-gray-500">
+              {user?.email} <span className="text-red-600">*</span>
+            </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <input
                 type="text"
@@ -173,9 +205,7 @@ const SellerForm = () => {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Email"
+                value={user?.email}
                 className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
               />
               <input
@@ -228,23 +258,49 @@ const SellerForm = () => {
                 placeholder="Shop Address"
                 className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
               />
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={handleShow}
+                  className="cursor-pointer absolute top-4 right-4"
+                >
+                  {show ? (
+                    <FaEye className="text-xl text-gray-600" />
+                  ) : (
+                    <FaEyeSlash className="text-xl text-gray-600" />
+                  )}
+                </button>
+                <input
+                  type={show ? "password" : "text"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                  className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
+                />
+              </div>
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={handleShow}
+                  className="cursor-pointer absolute top-4 right-4"
+                >
+                  {show ? (
+                    <FaEye className="text-xl text-gray-600" />
+                  ) : (
+                    <FaEyeSlash className="text-xl text-gray-600" />
+                  )}
+                </button>
 
-              <input
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Password"
-                className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
-              />
-              <input
-                type="password"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                placeholder="Retype Password"
-                className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
-              />
+                <input
+                  type={show ? "password" : "text"}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  placeholder="Retype Password"
+                  className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
+                />
+              </div>
               <button
                 type="submit"
                 className="cursor-pointer px-4 py-2 bg-primary text-black rounded font-semibold hover:bg-yellow-500 transition"

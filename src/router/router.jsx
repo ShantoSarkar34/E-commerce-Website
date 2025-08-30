@@ -14,6 +14,8 @@ import LikeList from "../Pages/profile/likeList/LikeList";
 import SellerForm from "../Pages/becomeSeller/SellerForm";
 import AdminRoute from "../authProvider/AdminRoute";
 import Error from "../Pages/error/Error";
+import SellerRequests from "../Pages/profile/admin/sellerReq/SellerRequests";
+import AllSeller from "../Pages/profile/admin/allSeller/AllSeller";
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +102,19 @@ export const router = createBrowserRouter([
           {
             path: "payment-history",
             element: <p>payment history</p>,
+          },
+          {
+            path: "pending-seller-request",
+            element: <AdminRoute>
+              <SellerRequests></SellerRequests>
+            </AdminRoute>,
+          },
+          {
+            path: "all-sellers",
+            element: <AdminRoute>
+
+              <AllSeller></AllSeller>
+            </AdminRoute>,
           },
         ],
       },

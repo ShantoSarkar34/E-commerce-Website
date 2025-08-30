@@ -9,6 +9,8 @@ const links = [
   { to: "like-list", label: "Like List" },
   { to: "pending-delevery", label: "Pending delevery" },
   { to: "payment-history", label: "Payment History" },
+  { to: "pending-seller-request", label: "Seller Request" },
+  { to: "all-sellers", label: "All Sellers" },
 ];
 
 const Profile = () => {
