@@ -13,7 +13,6 @@ const AdminRoute = ({ children }) => {
       </div>
     );
   }
-
   if (user?.email === adminRole[0]?.email) {
     return children;
   } else {

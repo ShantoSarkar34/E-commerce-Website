@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 const SellerForm = () => {
   const { user } = use(AuthContext);
   const apiKey = import.meta.env.VITE_IMGBB_API_KEY;
+  const [passError, setPassError] = useState(null);
   const today = new Date();
   const [formData, setFormData] = useState({
     firstName: "",
@@ -20,18 +21,15 @@ const SellerForm = () => {
     address: "",
     shopName: "",
     shopAddress: "",
-    password: "",
-    confirmPassword: "",
-     createdAt : `${String(today.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(today.getDate()).padStart(2, "0")}-${today.getFullYear()}`
+    createdAt: `${String(today.getMonth() + 1).padStart(2, "0")}-${String(
+      today.getDate()
+    ).padStart(2, "0")}-${today.getFullYear()}`,
   });
   const [profilePic, setProfilePic] = useState(null);
   const [shopLogo, setShopLogo] = useState(null);
   const [coverPic, setCoverPic] = useState(null);
   const [show, setShow] = useState(true);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // Universal input change handler
   const handleChange = (e) => {
@@ -120,26 +118,36 @@ const SellerForm = () => {
   // On form submit, log all data including image URLs
   const handleFormInfo = async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    if (password !== confirmPassword) {
+      setPassError("Password not matched!");
+    }
     const sellerData = {
       ...formData,
       profilePic,
       shopLogo,
       coverPic,
-    }
-    try {
-      const response = await axios.post(
-        "https://online-shop9070-server.onrender.com/all-seller",
-        sellerData
-      );
-      if (response.data.insertedId) {
-        toast.success("Congratulations, You become a seller !");
-        navigate('/profile/my-profile')
+      confirmPassword,
+    };
+
+    if (passError) {
+      try {
+        const response = await axios.post(
+          "https://online-shop9070-server.onrender.com/all-seller",
+          sellerData
+        );
+        if (response.data.insertedId) {
+          toast.success("Congratulations, You become a seller !");
+          navigate("/profile/my-profile");
+        }
+      } catch (error) {
+        console.log("error submitting :", error);
       }
-    } catch (error) {
-      console.log("error submitting :", error);
+    } else {
+      toast.warn("Fill this form correctly !");
     }
-    console.log(sellerData);
-    
   };
 
   const handleShow = () => {
@@ -273,8 +281,6 @@ const SellerForm = () => {
                 <input
                   type={show ? "password" : "text"}
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
                   placeholder="Password"
                   className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
                 />
@@ -295,11 +301,12 @@ const SellerForm = () => {
                 <input
                   type={show ? "password" : "text"}
                   name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
                   placeholder="Retype Password"
                   className="input-field placeholder:text-sm text-lg px-6 w-full font-normal bg-white border border-gray-300 rounded-lg h-[50px]"
                 />
+                {passError && (
+                  <p className="text-red-500 text-sm pt-2">{passError}</p>
+                )}
               </div>
               <button
                 type="submit"

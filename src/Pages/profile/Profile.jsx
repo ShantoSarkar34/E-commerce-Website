@@ -3,19 +3,25 @@ import { NavLink, Outlet } from "react-router";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext } from "../../authProvider/AuthProvider";
 
-const links = [
+
+
+const Profile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { dark , user, adminRole } = use(AuthContext);
+  const isAdmin = user?.email === adminRole[0]?.email;
+  const links = [
   { to: "my-profile", label: "My Profile" },
   { to: "all-cart", label: "All Cart" },
   { to: "like-list", label: "Like List" },
   { to: "pending-delevery", label: "Pending delevery" },
   { to: "payment-history", label: "Payment History" },
-  { to: "pending-seller-request", label: "Seller Request" },
-  { to: "all-sellers", label: "All Sellers" },
+  ...(isAdmin
+    ? [
+        { to: "pending-seller-request", label: "Seller Request" },
+        { to: "all-sellers", label: "All Sellers" },
+      ]
+    : []),
 ];
-
-const Profile = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { dark } = use(AuthContext);
 
   const toggleSidebar = () => {
     setIsOpen((prev) => !prev);

@@ -7,7 +7,6 @@ import { FaHandPaper } from "react-icons/fa";
 const AdminError = () => {
   return (
     <div>
-      <Header></Header>
       <section className="flex items-center min-h-screen  dark:bg-gray-50 dark:text-gray-800 pt-16 lg:pt-20">
         <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
           <div className="max-w-md text-center">
@@ -27,7 +26,6 @@ const AdminError = () => {
           </div>
         </div>
       </section>
-      <Footer></Footer>
     </div>
   );
 };
