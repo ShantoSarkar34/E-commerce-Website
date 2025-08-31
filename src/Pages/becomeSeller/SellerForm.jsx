@@ -21,6 +21,7 @@ const SellerForm = () => {
     address: "",
     shopName: "",
     shopAddress: "",
+    sellerStatus: "pending",
     createdAt: `${String(today.getMonth() + 1).padStart(2, "0")}-${String(
       today.getDate()
     ).padStart(2, "0")}-${today.getFullYear()}`,
@@ -132,7 +133,7 @@ const SellerForm = () => {
       confirmPassword,
     };
 
-    if (passError) {
+    if (!passError) {
       try {
         const response = await axios.post(
           "https://online-shop9070-server.onrender.com/all-seller",

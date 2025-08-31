@@ -105,16 +105,19 @@ export const router = createBrowserRouter([
           },
           {
             path: "pending-seller-request",
-            element: <AdminRoute>
-              <SellerRequests></SellerRequests>
-            </AdminRoute>,
+            element: (
+              <AdminRoute>
+                <SellerRequests></SellerRequests>
+              </AdminRoute>
+            ),
           },
           {
             path: "all-sellers",
-            element: <AdminRoute>
-
-              <AllSeller></AllSeller>
-            </AdminRoute>,
+            element: (
+              <AdminRoute>
+                <AllSeller></AllSeller>
+              </AdminRoute>
+            ),
           },
         ],
       },
