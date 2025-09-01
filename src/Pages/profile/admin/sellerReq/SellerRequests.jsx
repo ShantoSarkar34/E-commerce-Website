@@ -62,7 +62,7 @@ const SellerRequests = () => {
       today.getDate()
     ).padStart(2, "0")}-${today.getFullYear()}`,
     }
-    fetch(`http://localhost:3000/all-seller/${id}`,{
+    fetch(`https://online-shop9070-server.onrender.com/${id}`,{
       method: "PUT",
       headers:{
         "Content-Type": "application/json"
