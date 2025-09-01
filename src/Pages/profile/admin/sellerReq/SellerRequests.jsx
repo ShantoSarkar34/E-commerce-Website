@@ -4,16 +4,19 @@ import loadingAnimation from "../../../../../public/loading.json";
 import Lottie from "lottie-react";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const SellerRequests = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const today = new Date();
 
   useEffect(() => {
     fetch("https://online-shop9070-server.onrender.com/all-seller")
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        const filterReq = data?.filter((res)=> res.sellerStatus === "pending")
+        setData(filterReq);
         setLoading(false);
       })
       .catch((error) => {
@@ -52,8 +55,29 @@ const SellerRequests = () => {
     });
   };
 
-  const handleApprove = (id) => {
-    console.log("trying to update status ", id);
+  const handleApprove = (id , name) => {
+    const updateStatus = {
+      sellerStatus: "approved",
+      becomeSellerAt: `${String(today.getMonth() + 1).padStart(2, "0")}-${String(
+      today.getDate()
+    ).padStart(2, "0")}-${today.getFullYear()}`,
+    }
+    fetch(`http://localhost:3000/all-seller/${id}`,{
+      method: "PUT",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(updateStatus),
+    })
+    .then((res)=> res.json())
+    .then((data)=> {
+      if(data.modifiedCount> 0){
+       toast.success(`${name} is become a seller now !`)
+      }
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
   };
 
   if (loading) {
@@ -121,7 +145,7 @@ const SellerRequests = () => {
                 <td className="px-6 py-4 text-gray-500">{seller.email}</td>
                 <td className="px-6 py-4">
                   <span className="px-3 py-1 text-xs font-semibold rounded-full bg-yellow-100 text-yellow-700">
-                    {seller.status || "Pending"}
+                    {seller.sellerStatus}
                   </span>
                 </td>
                 <td className="px-6 py-4 flex items-center gap-4">
@@ -135,7 +159,7 @@ const SellerRequests = () => {
 
                   <button
                     title="Approve"
-                    onClick={() => handleApprove(seller._id)}
+                    onClick={() => handleApprove(seller._id,seller.firstName)}
                     className="flex cursor-pointer items-center gap-2 bg-[#ffbb38] hover:bg-[#e6a92f] text-black text-sm font-medium px-4 py-2 rounded shadow"
                   >
                     Approve
