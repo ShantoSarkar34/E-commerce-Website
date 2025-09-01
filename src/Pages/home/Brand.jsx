@@ -84,9 +84,9 @@ const Brand = () => {
         </h1>
         {/* brand images  */}
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
-          {brand.map((res) => (
+          {brand.map((res,idx) => (
             <div
-              key={res.id}
+              key={idx}
               className="border border-gray-400 overflow-hidden flex justify-center cursor-pointer"
             >
               <img

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FaShoppingCart,
   FaHeart,
@@ -16,8 +16,20 @@ import { motion } from "framer-motion";
 const MyProfile = () => {
   const { user, dark, currentRole, loading } = useContext(AuthContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const role = currentRole[0]?.role;
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    fetch("https://online-shop9070-server.onrender.com/all-seller")
+      .then((res) => res.json())
+      .then((data) => {
+        const filterData = data?.filter((res) => res.email === user?.email);
+        if (filterData[0]?.sellerStatus === "pending") {
+          setPending(true);
+        }
+      });
+  }, []);
+
 
   if (loading) {
     return (
@@ -43,7 +55,7 @@ const MyProfile = () => {
     >
       {/* Profile Header */}
       <motion.div
-        className="flex flex-col items-center text-center"
+        className="flex flex-col items-center text-center "
         initial={{ scale: 0.95 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -76,6 +88,16 @@ const MyProfile = () => {
         <p className={`text-gray-500 text-lg mt-1 ${dark && "text-white"}`}>
           Role: <span>{role}</span>
         </p>
+
+        <div className=" mt-2">
+          {pending ? (
+            <p className="text-red-300 border border-primary/50 rounded-md py-1 px-4 text-sm">
+              Your Seller request is pending now...!
+            </p>
+          ) : (
+            <></>
+          )}
+        </div>
 
         {/* Dynamic Stats Based on Role */}
         <motion.div

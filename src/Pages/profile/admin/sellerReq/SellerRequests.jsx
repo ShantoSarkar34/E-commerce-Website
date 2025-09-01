@@ -52,6 +52,10 @@ const SellerRequests = () => {
     });
   };
 
+  const handleApprove = (id) => {
+    console.log("trying to update status ", id);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen w-full flex items-center justify-center">
@@ -131,6 +135,7 @@ const SellerRequests = () => {
 
                   <button
                     title="Approve"
+                    onClick={() => handleApprove(seller._id)}
                     className="flex cursor-pointer items-center gap-2 bg-[#ffbb38] hover:bg-[#e6a92f] text-black text-sm font-medium px-4 py-2 rounded shadow"
                   >
                     Approve
