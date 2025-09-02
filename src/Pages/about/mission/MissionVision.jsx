@@ -17,7 +17,7 @@ const MissionVision = () => {
   ];
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-6 text-center">
         {data.map((item, idx) => (
           <motion.div
@@ -28,7 +28,9 @@ const MissionVision = () => {
             transition={{ duration: 0.6, delay: idx * 0.2 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-2">{item.title}</h3>
+            <h3 className="text-2xl font-bold mb-2 text-primary">
+              {item.title}
+            </h3>
             <p className="text-gray-600">{item.text}</p>
           </motion.div>
         ))}
