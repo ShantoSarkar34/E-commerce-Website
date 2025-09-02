@@ -16,6 +16,7 @@ import AdminRoute from "../authProvider/AdminRoute";
 import Error from "../Pages/error/Error";
 import SellerRequests from "../Pages/profile/admin/sellerReq/SellerRequests";
 import AllSeller from "../Pages/profile/admin/allSeller/AllSeller";
+import About from "../Pages/about/About";
 
 export const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <p className="pt-20">About page</p>,
+        Component: About,
       },
       {
         path: "/apply-for-seller",

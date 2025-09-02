@@ -92,7 +92,7 @@ const MyProfile = () => {
         <div className=" mt-2">
           {pending ? (
             <p className="text-red-300 border border-primary/50 rounded-md py-1 px-4 text-sm">
-              Your Seller request is pending now...!
+              Your Seller request is pending...!
             </p>
           ) : (
             <></>
