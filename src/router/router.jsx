@@ -17,6 +17,7 @@ import Error from "../Pages/error/Error";
 import SellerRequests from "../Pages/profile/admin/sellerReq/SellerRequests";
 import AllSeller from "../Pages/profile/admin/allSeller/AllSeller";
 import About from "../Pages/about/About";
+import Privacy from "../Pages/privacy/Privacy";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         Component: About,
+      },
+      {
+        path: "/privacy",
+        Component: Privacy,
       },
       {
         path: "/apply-for-seller",

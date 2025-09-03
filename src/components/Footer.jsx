@@ -1,5 +1,6 @@
 import React, { use } from "react";
 import { AuthContext } from "../authProvider/AuthProvider";
+import { NavLink } from "react-router";
 
 const Footer = () => {
   const { theme } = use(AuthContext);
@@ -80,9 +81,9 @@ const Footer = () => {
               theme === "dark" && "text-slate-400"
             }`}
           >
-            <a rel="noopener noreferrer" href="#">
-              Configuration
-            </a>
+            <NavLink to="/privacy">
+              Privacy & Policy
+            </NavLink>
             <a rel="noopener noreferrer" href="#">
               Theme Configuration
             </a>
