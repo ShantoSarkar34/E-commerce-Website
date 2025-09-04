@@ -84,9 +84,10 @@ const Footer = () => {
             <NavLink to="/privacy">
               Privacy & Policy
             </NavLink>
-            <a rel="noopener noreferrer" href="#">
-              Theme Configuration
-            </a>
+            <NavLink to="/faq">
+              FAQ
+            </NavLink>
+            
             <a rel="noopener noreferrer" href="#">
               Breakpoints
             </a>

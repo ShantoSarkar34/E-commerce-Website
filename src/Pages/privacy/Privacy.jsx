@@ -80,7 +80,7 @@ const Privacy = () => {
                 className="p-6 bg-gray-100 rounded-lg shadow-md"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: 1 * 0.2 }}
                 viewport={{ once: true }}
               >
                 <h2 className="text-2xl font-bold text-gray-800 mb-3">

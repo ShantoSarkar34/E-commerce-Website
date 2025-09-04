@@ -18,6 +18,7 @@ import SellerRequests from "../Pages/profile/admin/sellerReq/SellerRequests";
 import AllSeller from "../Pages/profile/admin/allSeller/AllSeller";
 import About from "../Pages/about/About";
 import Privacy from "../Pages/privacy/Privacy";
+import Faq from "../Pages/faq/Faq";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "/privacy",
         Component: Privacy,
+      },
+      {
+        path: "/faq",
+        Component: Faq,
       },
       {
         path: "/apply-for-seller",
