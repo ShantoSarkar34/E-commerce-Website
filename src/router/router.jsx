@@ -6,7 +6,6 @@ import Profile from "../Pages/profile/Profile";
 import Home from "../Pages/home/Home";
 import PrivateRoute from "../authProvider/PrivateRouter";
 import PaymentInput from "../Pages/payment/PaymentInput";
-import AddProduct from "../Pages/addProduct/AddProduct";
 import MyProfile from "../Pages/profile/myProfile/MyProfile";
 import AllCart from "../Pages/profile/allCarts/AllCart";
 import SingleProduct from "../Pages/singleProduct/SingleProduct";
@@ -19,6 +18,8 @@ import AllSeller from "../Pages/profile/admin/allSeller/AllSeller";
 import About from "../Pages/about/About";
 import Privacy from "../Pages/privacy/Privacy";
 import Faq from "../Pages/faq/Faq";
+import SellerRoute from "../authProvider/SellerRoute";
+import AddProduct from "../Pages/profile/seller/addProduct/AddProduct";
 
 export const router = createBrowserRouter([
   {
@@ -48,14 +49,6 @@ export const router = createBrowserRouter([
           <PrivateRoute>
             <SellerForm></SellerForm>
           </PrivateRoute>
-        ),
-      },
-      {
-        path: "/add-product",
-        element: (
-          <AdminRoute>
-            <AddProduct></AddProduct>
-          </AdminRoute>
         ),
       },
       {
@@ -96,6 +89,14 @@ export const router = createBrowserRouter([
               <PrivateRoute>
                 <AllCart></AllCart>
               </PrivateRoute>
+            ),
+          },
+          {
+            path: "add-product",
+            element: (
+              <SellerRoute>
+                <AddProduct></AddProduct>
+              </SellerRoute>
             ),
           },
           {

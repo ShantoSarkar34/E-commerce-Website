@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthProvider";
 import AdminError from "../Pages/error/AdminError";
 
 const SellerRoute = ({ children }) => {
-  const { user, SellerRole, loading } = use(AuthContext);
+  const { user, sellerRole, loading } = use(AuthContext);
 
   if (loading) {
     return (
@@ -13,7 +13,7 @@ const SellerRoute = ({ children }) => {
       </div>
     );
   }
-  if (user?.email === SellerRole[0]?.email) {
+  if (user?.email === sellerRole[0]?.email) {
     return children;
   } else {
     return <AdminError></AdminError>;

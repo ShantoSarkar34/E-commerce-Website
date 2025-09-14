@@ -34,8 +34,8 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="pt-16 lg:pt-20">
-      <div className="py-20">
+    <div className="">
+      <div className="">
         <div className="max-w-xl mx-auto p-6 lg:p-10 bg-white border border-primary rounded-lg">
           <h2 className="text-2xl font-bold mb-4 text-gray-800">
             Add New Product

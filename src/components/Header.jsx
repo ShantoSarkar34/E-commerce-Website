@@ -100,18 +100,6 @@ const Header = () => {
                 >
                   Become Seller
                 </NavLink>
-                <NavLink
-                  to="/add-product"
-                  className={({ isActive }) =>
-                    ` text-[14px] font-semibold hover:text-[#ffbb38] border-b pb-1 transition-all duration-200 ${
-                      isActive
-                        ? "text-[#ffbb38]"
-                        : "text-[#0F0F0F80] border-white"
-                    }`
-                  }
-                >
-                  Add Product
-                </NavLink>
               </ul>
             </div>
 
@@ -168,22 +156,6 @@ const Header = () => {
                 }
               >
                 Become Seller
-              </NavLink>
-              <NavLink
-                to="/add-product"
-                className={({ isActive }) =>
-                  `text-[14px]  font-semibold hover:text-[#ffbb38] transition-all border-b-2 duration-100 py-[1px] px-1  ${
-                    theme === "dark"
-                      ? "text-white border-gray-800"
-                      : "text-[#0F0F0F80] border-gray-100"
-                  } ${
-                    isActive
-                      ? "text-[#ffbb38] border-primary "
-                      : "text-[#0F0F0F80] "
-                  }`
-                }
-              >
-                Add Product
               </NavLink>
             </ul>
           </div>
