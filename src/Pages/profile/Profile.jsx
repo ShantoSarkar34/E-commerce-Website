@@ -7,8 +7,9 @@ import { AuthContext } from "../../authProvider/AuthProvider";
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { dark , user, adminRole } = use(AuthContext);
+  const { dark , user, adminRole , sellerRole} = use(AuthContext);
   const isAdmin = user?.email === adminRole[0]?.email;
+  const isSeller = user?.email === sellerRole[0]?.email;
   const links = [
   { to: "my-profile", label: "My Profile" },
   { to: "all-cart", label: "All Cart" },
@@ -19,6 +20,11 @@ const Profile = () => {
     ? [
         { to: "pending-seller-request", label: "Seller Request" },
         { to: "all-sellers", label: "All Sellers" },
+      ]
+    : []),
+  ...(isSeller
+    ? [
+        { to: "add-product", label: "Add Product" },
       ]
     : []),
 ];

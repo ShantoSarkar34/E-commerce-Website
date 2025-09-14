@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const adminRole = data?.filter((res) => res.role === "admin");
+  const sellerRole = data?.filter((res) => res.role === "seller");
   const currentRole = data?.filter((res) => res.email === user?.email);
 
   const createUser = async (email, password, name) => {
@@ -99,6 +100,7 @@ const AuthProvider = ({ children }) => {
     setTheme,
     dark,
     adminRole,
+    sellerRole,
     currentRole,
   };
 
