@@ -15,7 +15,7 @@ const SellerRequests = () => {
     fetch("https://online-shop9070-server.onrender.com/all-seller")
       .then((res) => res.json())
       .then((data) => {
-        const filterReq = data?.filter((res)=> res.sellerStatus === "pending")
+        const filterReq = data?.filter((res) => res.sellerStatus === "pending");
         setData(filterReq);
         setLoading(false);
       })
@@ -55,29 +55,34 @@ const SellerRequests = () => {
     });
   };
 
-  const handleApprove = (id , name) => {
+  const handleApprove = (id, name) => {
     const updateStatus = {
       sellerStatus: "approved",
-      becomeSellerAt: `${String(today.getMonth() + 1).padStart(2, "0")}-${String(
-      today.getDate()
-    ).padStart(2, "0")}-${today.getFullYear()}`,
-    }
-    fetch(`https://online-shop9070-server.onrender.com/${id}`,{
+      becomeSellerAt: `${String(today.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}-${String(today.getDate()).padStart(2, "0")}-${today.getFullYear()}`,
+    };
+    fetch(`https://online-shop9070-server.onrender.com/all-seller/${id}`, {
       method: "PUT",
-      headers:{
-        "Content-Type": "application/json"
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updateStatus),
     })
-    .then((res)=> res.json())
-    .then((data)=> {
-      if(data.modifiedCount> 0){
-       toast.success(`${name} is become a seller now !`)
-      }
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          const remainingUsers = data.filter(
+            (data) => data.sellerStatus === "pending"
+          );
+          setData(remainingUsers);
+          toast.success(`${name} is become a seller now !`);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   if (loading) {
@@ -159,7 +164,7 @@ const SellerRequests = () => {
 
                   <button
                     title="Approve"
-                    onClick={() => handleApprove(seller._id,seller.firstName)}
+                    onClick={() => handleApprove(seller._id, seller.firstName)}
                     className="flex cursor-pointer items-center gap-2 bg-[#ffbb38] hover:bg-[#e6a92f] text-black text-sm font-medium px-4 py-2 rounded shadow"
                   >
                     Approve
