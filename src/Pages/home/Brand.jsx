@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import brand_1 from "../../assets/brand/brand-1.png";
 import brand_2 from "../../assets/brand/brand-2.png";
 import brand_3 from "../../assets/brand/brand-3.png";
@@ -11,8 +11,11 @@ import brand_9 from "../../assets/brand/brand-9.png";
 import brand_10 from "../../assets/brand/brand-10.png";
 import brand_11 from "../../assets/brand/brand-11.png";
 import brand_12 from "../../assets/brand/brand-12.png";
+import { AuthContext } from "../../authProvider/AuthProvider";
 
 const Brand = () => {
+  const { dark } = use(AuthContext);
+
   const brand = [
     {
       id: 1,
@@ -75,16 +78,20 @@ const Brand = () => {
       image: brand_12,
     },
   ];
-  
+
   return (
-    <div className="bg-white py-20 w-full">
+    <div className={`bg-[#e9e8e8] py-20 w-full ${dark && "bg-gray-700"}`}>
       <div className="container mx-auto px-4">
-        <h1 className=" font-semibold mb-10 lg:mb-14 text-3xl ">
+        <h1
+          className={`font-semibold mb-10 lg:mb-14 text-3xl ${
+            dark && "text-white"
+          }`}
+        >
           Shop by Brand
         </h1>
         {/* brand images  */}
         <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 ">
-          {brand.map((res,idx) => (
+          {brand.map((res, idx) => (
             <div
               key={idx}
               className="border border-gray-400 overflow-hidden flex justify-center cursor-pointer"
